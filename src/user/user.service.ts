@@ -30,12 +30,13 @@ export class UserService {
       username: createUserDto.username,
     });
 
-    if (userByUsername) {
+    if (userByEmail) {
       errorResponse.errors['email'] = 'has already been taken';
     }
     if (userByUsername) {
       errorResponse.errors['username'] = 'has already been taken';
     }
+    console.log('register', userByUsername, errorResponse);
     if (userByEmail || userByUsername) {
       throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
