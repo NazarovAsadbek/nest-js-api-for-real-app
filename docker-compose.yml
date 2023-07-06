@@ -1,13 +1,14 @@
-version: '3.5'
+version: '3.8'
 
 services:
-  db:
+  postgres:
     image: postgres:13.11
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345!!!
       - POSTGRES_PORT=5432
+      - POSTGRES_DB=db
     container_name: postgres
     volumes:
       - ./pgdata:/var/lib/postgresql/data
@@ -18,6 +19,7 @@ services:
     build:
       context: .
       dockerfile: ./deployment/Dockerfile
+    restart: always
     container_name: nest-js-realworld-api
     environment:
       - PORT=3003
