@@ -20,11 +20,14 @@ import { ArticleResponseInterface } from '@app/article/types/articleResponse.int
 import { DeleteResult } from 'typeorm';
 import { ArticlesResponseInterface } from '@app/article/types/articlesResponse.interface';
 import { BackendValidationPipe } from "@app/shared/pipes/backendValidation.pipe";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
 @Controller('articles')
+@ApiTags('articles')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
   @Get()
+  @ApiOperation({ summary: 'Find all articles' })
   async findAll(
     @User('id') currentUserId: number,
     @Query() query: any,
@@ -33,6 +36,7 @@ export class ArticleController {
   }
 
   @Get('feed')
+  @ApiOperation({ summary: 'Find feed' })
   @UseGuards(AuthGuard)
   async getFeed(
     @User('id') currentUserId: number,
@@ -42,6 +46,7 @@ export class ArticleController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create article' })
   @UseGuards(AuthGuard)
   @UsePipes(new BackendValidationPipe())
   async create(
@@ -56,6 +61,7 @@ export class ArticleController {
   }
 
   @Put(':slug')
+  @ApiOperation({ summary: 'Update article' })
   @UseGuards(AuthGuard)
   @UsePipes(new BackendValidationPipe())
   async updateArticle(
@@ -72,6 +78,7 @@ export class ArticleController {
   }
 
   @Get(':slug')
+  @ApiOperation({ summary: 'Find article by slug' })
   async getSingleArticle(
     @Param('slug') slug: string,
   ): Promise<ArticleResponseInterface> {
@@ -80,6 +87,7 @@ export class ArticleController {
   }
 
   @Delete(':slug')
+  @ApiOperation({ summary: 'Delete article' })
   @UseGuards(AuthGuard)
   async deleteArticle(
     @User('id') currentUserId: number,
@@ -89,6 +97,7 @@ export class ArticleController {
   }
 
   @Post(':slug/favorite')
+  @ApiOperation({ summary: 'Add article to favorites' })
   @UseGuards(AuthGuard)
   async addArticleToFavorites(
     @User('id') currentUserId: number,
@@ -102,6 +111,7 @@ export class ArticleController {
     return this.articleService.buildArticleResponse(article);
   }
   @Delete(':slug/favorite')
+  @ApiOperation({ summary: 'Delete article to favorites' })
   @UseGuards(AuthGuard)
   async deleteArticleFromFavorites(
     @User('id') currentUserId: number,

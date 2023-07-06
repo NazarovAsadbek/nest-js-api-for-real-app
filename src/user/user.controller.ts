@@ -19,12 +19,15 @@ import { UserEntity } from '@app/user/user.entity';
 import { AuthGuard } from '@app/user/guards/auth.guard';
 import { UpdateUserDto } from '@app/user/dto/updateUser.dto';
 import { BackendValidationPipe } from '@app/shared/pipes/backendValidation.pipe';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('user')
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('users')
+  @ApiOperation({ summary: 'Create user' })
   @UsePipes(new BackendValidationPipe())
   async createUser(
     @Body('user') createUserDto: CreateUserDto,
@@ -34,6 +37,7 @@ export class UserController {
   }
 
   @Post('users/login')
+  @ApiOperation({ summary: 'User authorization' })
   @UsePipes(new BackendValidationPipe())
   async login(
     @Body('user') loginUserDto: LoginUserDto,
@@ -43,6 +47,7 @@ export class UserController {
   }
 
   @Get('user')
+  @ApiOperation({ summary: 'Get current user info' })
   @UseGuards(AuthGuard)
   async currentUser(
     @Req() request: ExpressRequestInterface,
@@ -52,6 +57,7 @@ export class UserController {
   }
 
   @Put('user')
+  @ApiOperation({ summary: 'Update current user info' })
   @UseGuards(AuthGuard)
   async updateCurrentUser(
     @User('id') currentUserId: number,
