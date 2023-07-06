@@ -7,7 +7,7 @@ const config: ConnectionOptions = {
   username: 'mediumclone',
   password: '12345!!!',
   database: 'mediumclone',
-  url: 'postgres://user:password@postgres:5432/db',
+  url: 'postgres://postgres:12345!!!@postgres:5432/db',
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: false,
   migrations: [__dirname + '/migrations/**/*{.ts, .js}'],
