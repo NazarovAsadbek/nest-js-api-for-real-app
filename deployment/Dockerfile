@@ -9,6 +9,9 @@ RUN yarn
 COPY . .
 
 RUN yarn build
+RUN yarn db:drop
+RUN yarn db:create
+RUN yarn db:migrate
 
 EXPOSE 3003
 
