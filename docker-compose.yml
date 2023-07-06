@@ -5,10 +5,10 @@ services:
     image: postgres:13.11
     restart: always
     environment:
-      - POSTGRES_USER:user
-      - POSTGRES_PASSWORD:password
-      - POSTGRES_DB:db
-      - POSTGRES_PORT:5432
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+      - POSTGRES_PORT=5432
     container_name: postgres
     volumes:
       - ./pgdata:/var/lib/postgresql/data
