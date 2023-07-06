@@ -15,7 +15,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./deployment/Dockerfile
     container_name: nest-js-realworld-api
     environment:
       - PORT=3003
