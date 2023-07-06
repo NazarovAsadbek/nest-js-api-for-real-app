@@ -7,7 +7,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345!!!
-      - POSTGRES_PORT=5433
+      - POSTGRES_PORT=5432
     container_name: postgres
     volumes:
       - ./pgdata:/var/lib/postgresql/data
