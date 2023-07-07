@@ -19,7 +19,12 @@ import { UserEntity } from '@app/user/user.entity';
 import { AuthGuard } from '@app/user/guards/auth.guard';
 import { UpdateUserDto } from '@app/user/dto/updateUser.dto';
 import { BackendValidationPipe } from '@app/shared/pipes/backendValidation.pipe';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('user')
 @Controller()
@@ -38,6 +43,18 @@ export class UserController {
 
   @Post('users/login')
   @ApiOperation({ summary: 'User authorization' })
+  @ApiCreatedResponse({
+    description: '',
+    type: UserEntity,
+  })
+  @ApiBody({
+    schema: {
+      default: {
+        email: 'nazarov_asadbek_job@mail.ru',
+        password: '12345!!!',
+      },
+    },
+  })
   @UsePipes(new BackendValidationPipe())
   async login(
     @Body('user') loginUserDto: LoginUserDto,
